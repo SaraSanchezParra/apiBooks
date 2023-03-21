@@ -95,9 +95,9 @@ function getAllBooks(request, response) {
 
 function postBook(request, response) {
     let respuesta;
-    let sql = "INSERT into book (Id_user, title, type, author, price, photo) VALUES (?, ?, ?, ?, ?, ?)";
-    const {Id_user, title, type, author, price, photo} = request.body;
-    const params = [Id_user, title, type, author, price, photo];
+    let sql = "INSERT into book (id_user, title, type, author, price, photo) VALUES (?, ?, ?, ?, ?, ?)";
+    const {id_user, title, type, author, price, photo} = request.body;
+    const params = [id_user, title, type, author, price, photo];
     connection.query(sql, params, function (err, result) {
       if (err) {
         console.log(err);
@@ -115,9 +115,9 @@ function postBook(request, response) {
 
 
 function putBook(request, response) {
-  let sql = "UPDATE book SET Id_user=?, title=?, type=?, author=?, price=?, photo=? WHERE Id_book =?";
-  const {Id_user, title, type, author, price, photo, Id_book} = request.body;
-  const params = [ Id_user, title, type, author, price, photo, Id_book];
+  let sql = "UPDATE book SET id_user=?, title=?, type=?, author=?, price=?, photo=? WHERE id_book =?";
+  const {id_user, title, type, author, price, photo, id_book} = request.body;
+  const params = [ id_user, title, type, author, price, photo, id_book];
   connection.query(sql, params, function (err, result) {
       if (err) {
         console.log(err);
