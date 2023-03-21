@@ -25,7 +25,7 @@ function postRegister(request, response){
 
 function postLogin(request, response){
     const {email, password} = request.body;
-    const sql = `SELECT name, last_name, email, photo FROM user WHERE email =? AND password = ?`;
+    const sql = `SELECT * FROM user WHERE email =? AND password = ?`;
     const params = [email, password];
     
     connection.query(sql, params, function (err, result) {
@@ -35,6 +35,7 @@ function postLogin(request, response){
       } else {
         console.log(result);
         if (result.length>0) {
+          console.log(result);
           response.status(200).json(result);
         } else {
           response.status(401).send("Login incorrecto");
@@ -52,7 +53,7 @@ function getStart(request, response) {
 
 function getBook(request, response) {
   let id = request.params.id;
-  let sql = "SELECT * from book WHERE Id_book = ?";
+  let sql = "SELECT * from book WHERE Id_book"
   const params = [id];
   let respuesta;
 
@@ -74,9 +75,11 @@ function getBook(request, response) {
 
 function getAllBooks(request, response) {
     let respuesta;
-    let sql = "SELECT * from book"
+    let id = request.query.id_user;
+    const params = [id];
+    let sql = "SELECT * from book WHERE id_user = ?"
 
-    connection.query(sql, function (err, result) {
+    connection.query(sql, params, function (err, result) {
       if (err) {
         console.log(err);
         response.status(500).send("Error al obtener todos los libros");
