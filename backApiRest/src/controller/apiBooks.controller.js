@@ -7,17 +7,17 @@ function postRegister(request, response){
     const {name, last_name, email, photo, password} = request.body;
     const sql = `INSERT INTO user (name, last_name, email, photo, password) VALUES (?, ?, ?, ?, ?)`;
     const params = [name, last_name, email, photo, password];
-    
+    let answer;
     connection.query(sql, params, function (err, result) {
       if (err) {
         console.log(err);
-        response.status(500).send("Error al agregar usuario");
+        answer = {error: true, code:200, mensaje: "no furula", data:[null]}
       } else {
         console.log(result);
         if (result.insertId) {
-          response.status(201).json({ message: "Usuario agregado", id: result.insertId });
+          response.status(201).json({error: true, code:200, message: String(result.insertId), id: result.insertId });
         } else {
-          response.status(500).send("Error al agregar usuario");
+          answer = {error: true, code:200, mensaje: "-1", data:[null]}
         }
       }
     });
